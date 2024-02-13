@@ -14,7 +14,8 @@ SRC_CLASS	=	ft_irc/ft_irc.cpp \
 				parser/parser.cpp \
 				user/user.cpp \
 				user/msgOpr.cpp \
-				channel/channel.cpp 
+				channel/channel.cpp \
+				channel/bot/bot.cpp
 DIR_CLASS	=	./class_cpp/
 OBJ_CLASS	=	${addprefix ${DIR_CLASS}, ${SRC_CLASS:.cpp=.o}}
 

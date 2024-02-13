@@ -1,6 +1,7 @@
 #pragma once
 
 #include "user.hpp"
+#include "bot.hpp"
 
 class chanell
 {
@@ -19,6 +20,7 @@ private:
 	std::vector<user *>	_users;
 	std::vector<user *>	_operators;
 
+	static bot			_bot;
 public:
 	chanell( user *user, std::string name );
 	~chanell();

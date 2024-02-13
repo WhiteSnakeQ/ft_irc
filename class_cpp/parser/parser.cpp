@@ -1,4 +1,5 @@
 #include "../../class_hpp/parser.hpp"
+#include "sstream"
 
 /*Check valid numbr*/
 bool	parser::is_number( std::string &numb )
@@ -44,6 +45,20 @@ bool	parser::parse_port( std::string &port )
 	if (1024 > port_int || port_int > 65535)
 		return (false);
 	return (true);
+}
+
+/*Toupper*/
+void	parser::toupper( std::string str )
+{
+	std::transform(str.begin(), str.end(), str.begin(), ::toupper);
+}
+
+/*Converts int to str*/
+std::string parser::convertIntToStr( int num )
+{
+	std::ostringstream oss;
+	oss << num;
+	return oss.str();
 }
 
 /*Make from string simple vector<string>*/

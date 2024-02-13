@@ -10,7 +10,8 @@ void	ft_irc::emergency_exit( short codeErr )
 		_errorCode = codeErr;
 	deleteUsers();
 	error::error_index_print(_errorCode);
-	error::print_emessage(MAGENTA_COLOR, "Server emergency closed!");
+	if (_socketfd != 0)
+		error::print_emessage(MAGENTA_COLOR, "Server emergency closed!");
 	delete (this);
 	exit(1);
 }

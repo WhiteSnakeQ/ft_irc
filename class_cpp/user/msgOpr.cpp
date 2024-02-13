@@ -16,6 +16,12 @@ int	user:: msgRecv( void )
 		ft_irc::cleanExit(NULL);
 	}
 	_msgFromUser = parser::makeVectorString(str);
+	if (_msgFromUser.size() > 0)
+	{
+		parser::toupper(_msgFromUser[0]);
+		if (_msgFromUser[0][0] == '/')
+			_msgFromUser[0].erase(0);
+	}
 	return (recv_b);
 }
 

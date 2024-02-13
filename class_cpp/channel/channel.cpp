@@ -117,9 +117,16 @@ void	chanell::sendMessage( std::string msg )
 		(*i)->msgToUsser(msg);
 }
 
-/*Send msg from one user to all channel (except msg owner)*/
+/*Send msg from one user to all channel or send to bot*/
 void	chanell::sendMessage( std::string msg, user *user )
 {
+	std::vector<std::string> checkBot = parser::makeVectorString(msg);
+
+	if (checkBot[3] == ":BOT" || checkBot[3] == "BOT")
+	{
+		user->msgToUsser(bot::cmdHandler(_users, parser::makeVectorString(msg), _name));
+		return ;
+	}
 	for (std::vector<class user *>::iterator i = _users.begin(); i != _users.end() ; i++)
 	{
 		if ((*i) != user)
