@@ -6,6 +6,17 @@
 #include "channel.hpp"
 #include "user.hpp"
 
+
+struct FindByFD
+{
+	int fd;
+
+    FindByFD(int fd) : fd(fd) { }
+
+    bool operator()(user *user) const { return (user->getfd() == fd); }
+    bool operator()(const struct pollfd& pfd) const { return (pfd.fd == fd); }
+};
+
 class ft_irc
 {
 private:
@@ -18,8 +29,8 @@ private:
 
 	int				_socketfd;
 
-	std::vector<pollfd>	_fds;
-	std::vector<class user *>	_users;
+	std::vector<pollfd>				_fds;
+	std::vector<class user *>		_users;
 	std::vector<class chanell *>	_channels;
 
 	void		createSocket( void );
@@ -37,7 +48,7 @@ private:
 	void		registerCmd( user *user, std::vector<std::string> msg );
 	void		operatorCmd( user *user, std::vector<std::string> msg );
 
-	void		join( user *user, std::string msg );
+	void		join( user *user, std::vector<std::string> msg );
 	void		part( user *user, std::string msg );
 	void		prvmsg( user *user, std::vector<std::string> msg );
 	void		kick( user *user, std::vector<std::string> msg );
@@ -68,14 +79,4 @@ public:
 	short		getErrorCode( void );
 
 	static void	cleanExit( ft_irc *irc );
-};
-
-struct FindByFD
-{
-	int fd;
-
-    FindByFD(int fd) : fd(fd) { }
-
-    bool operator()(user *user) const { return (user->getfd() == fd); }
-    bool operator()(const struct pollfd& pfd) const { return (pfd.fd == fd); }
 };

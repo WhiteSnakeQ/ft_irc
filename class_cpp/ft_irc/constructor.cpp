@@ -1,5 +1,6 @@
 #include "../../class_hpp/ft_irc.hpp"
 
+/*Create class and parse user input*/
 ft_irc::ft_irc( int argc, char **argv ) : _servName("ft_irc"), _errorCode(0), _port(0), _pass("0000"), _socketfd(0)
 {
 	std::string	to_check;
@@ -28,16 +29,7 @@ ft_irc::ft_irc( int argc, char **argv ) : _servName("ft_irc"), _errorCode(0), _p
 	signal(SIGTERM, signalHandler);
 }
 
-void	ft_irc::cleanExit( ft_irc *irc )
-{
-	static ft_irc	*clean;
-
-	if (irc)
-		clean = irc;
-	else
-		delete (clean);
-}
-
+/*Delete all users and channels, close socket*/
 ft_irc::~ft_irc()
 {
 	deleteUsers();
@@ -48,4 +40,15 @@ ft_irc::~ft_irc()
 		close(_socketfd);
 	}
 	return ;
+}
+
+/*Use for emergency exit*/
+void	ft_irc::cleanExit( ft_irc *irc )
+{
+	static ft_irc	*clean;
+
+	if (irc)
+		clean = irc;
+	else
+		delete (clean);
 }

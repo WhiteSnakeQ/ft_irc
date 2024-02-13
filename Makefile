@@ -30,17 +30,19 @@ FLAGS		=	-Wall -Wextra -Werror -std=c++98
 all:		${NAME}
 
 .cpp.o:
-			${CPP} ${FLAGS} -c $< -o ${<:.cpp=.o}
+			@${CPP} ${FLAGS} -c $< -o ${<:.cpp=.o}
 
 ${NAME}:	${ALLOBJ}
-			${CPP} ${FLAGS} ${ALLOBJ} -o ${NAME}
+			@${CPP} ${FLAGS} ${ALLOBJ} -o ${NAME}
 			@echo DONE
 
 clean:
 			@rm -f ${ALLOBJ}
+			@echo clean DONE
 
 fclean:		clean
 			@rm -f ${NAME}
+			@echo fclean DONE
 
 re:			fclean all
 

@@ -3,6 +3,7 @@
 #include "cerrno"
 #include "cstdio"
 
+/*Exit and debug reason*/
 void	ft_irc::emergency_exit( short codeErr )
 {
 	if (codeErr != 0)
@@ -14,11 +15,13 @@ void	ft_irc::emergency_exit( short codeErr )
 	exit(1);
 }
 
+/*Return first error*/
 short	ft_irc::getErrorCode( void )
 {
 	return (_errorCode);
 }
 
+/*Handle sygnals(2, 15)*/
 void	ft_irc::signalHandler( int sygnal )
 {
 	switch (sygnal)

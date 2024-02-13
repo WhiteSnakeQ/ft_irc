@@ -1,5 +1,6 @@
 #include "../../class_hpp/parser.hpp"
 
+/*Check valid numbr*/
 bool	parser::is_number( std::string &numb )
 {
 	if (numb.find_first_not_of("0123456789") == numb.npos)
@@ -7,6 +8,7 @@ bool	parser::is_number( std::string &numb )
 	return (false); 
 }
 
+/*Check valid ip (like 127.0.0.1)*/
 bool	parser::parse_ip( std::string &ip )
 {
 	size_t		pos;
@@ -31,6 +33,7 @@ bool	parser::parse_ip( std::string &ip )
 	return (true);
 }
 
+/*Check valid port*/
 bool	parser::parse_port( std::string &port )
 {
 	int			port_int;
@@ -43,6 +46,7 @@ bool	parser::parse_port( std::string &port )
 	return (true);
 }
 
+/*Make from string simple vector<string>*/
 std::vector<std::string>	parser::makeVectorString( std::string string )
 {
 	size_t						pos;
@@ -73,6 +77,7 @@ std::vector<std::string>	parser::makeVectorString( std::string string )
 	return (toRet);
 }
 
+/*Make from vector<string> simple string*/
 std::string	parser::makeStrFromVector( std::vector<std::string> msg, int skip )
 {
 	std::string messsage = "";
@@ -85,5 +90,6 @@ std::string	parser::makeStrFromVector( std::vector<std::string> msg, int skip )
 		messsage += *i;
 		messsage += " ";
 	}
+	messsage.erase(messsage.end() - 1);
 	return (messsage);
 }

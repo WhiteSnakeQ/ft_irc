@@ -20,8 +20,7 @@ private:
 	std::string		_nickName;
 	std::string		_userName;
 
-	std::vector<std::string>			_msgFromUser;
-	std::vector<std::string>			_msgToUser;
+	std::vector<std::string>	_msgFromUser;
 
 	bool			_isRegistered;
 	bool			_passProve;
@@ -34,7 +33,6 @@ public:
 	int				getfd( void );
 	std::string		getHostName( void );
 	std::string		getIP( void );
-
 	std::string		getNickName( void );
 	std::string		getUserName( void );
 	std::string		getFull ( void );
@@ -43,7 +41,6 @@ public:
 	void			setUserName( std::string nickName );
 
 	std::vector<std::string>	getMsgF( void );
-	std::vector<std::string>	&getMsgT( void );
 
 	int				msgRecv( void );
 	void			printBuffer( void );

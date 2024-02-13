@@ -3,6 +3,7 @@
 
 #include "cstring"
 
+/*Recive msg from user(Handle error)*/
 int	user:: msgRecv( void )
 {
 	char	str[BUFFER_SIZE];
@@ -14,11 +15,11 @@ int	user:: msgRecv( void )
 		error::print_emessage(RED_COLOR, RECVERR);
 		ft_irc::cleanExit(NULL);
 	}
-	std::cout << str << std::endl;
 	_msgFromUser = parser::makeVectorString(str);
 	return (recv_b);
 }
 
+/*Send msg to user(Handle error)*/
 void	user::msgToUsser( std::string msg )
 {
 	if (send(_fd, msg.c_str(), msg.length(), 0) == -1)

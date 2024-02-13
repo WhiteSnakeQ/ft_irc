@@ -12,6 +12,7 @@ private:
 	bool				_o_mode;
 
 	int					_limit;
+	std::string			_pass;
 
 	std::string			_name;
 	std::string			_topic;
@@ -26,7 +27,7 @@ public:
 	void			sendMessage( std::string msg, user *user );
 	int				removeUser( std::string nick, std::string cmd, std::string msg );
 
-	void			addUser( user *user );
+	void			addUser( user *user, std::string status );
 	void			addOper( user *user );
 
 	bool			isInside( std::string nick );
@@ -34,10 +35,12 @@ public:
 	bool			isAvailb( void );
 
 	std::string		getName( void );
+	std::string		getPass( void );
+	std::string		getTopic( void );
 	void			setTopic( std::string msg );
 
 	bool			getModeStatus( char mode );
-	void			changeMode( std::string mode, user *user );
+	void			changeMode( std::string mode, user *user, std::string addInfo );
 };
 
 struct findByStrCh

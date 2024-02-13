@@ -1,5 +1,6 @@
 #include "../../class_hpp/ft_irc.hpp"
 
+/*Remove user from server*/
 void	ft_irc::kickUser( int fd )
 {
 	std::vector<user *>::iterator	_user = std::find_if(_users.begin(), _users.end(), FindByFD(fd));
@@ -18,12 +19,13 @@ void	ft_irc::kickUser( int fd )
 		_fds.erase(pollfdR);
 }
 
+/*Connection message(Client req)*/
 void	ft_irc::welcomeMessage( user *user )
 {
 	std::string	deff;
 	std::string welcomeMsg;
 
-	std::cout <<"welcome msg send" << std::endl;
+	error::print_message(MAGENTA_COLOR, "New user register!\n");
 	deff = user->getNickName() + "!" + user->getUserName() + "@" + user->getHostName();
 	welcomeMsg = ":IRC 001 " + deff + " :Welcome to the Internet Relay Network " + user->getNickName() + "\n";
 	user->msgToUsser(welcomeMsg);
@@ -36,12 +38,14 @@ void	ft_irc::welcomeMessage( user *user )
 	user->updateStatus();
 }
 
+/*Clean all users*/
 void	ft_irc::deleteUsers()
 {
 	for (size_t i = _users.size(); i > 0; i--)
 		kickUser(_users.front()->getfd());
 }
 
+/*Clean all  channel*/
 void	ft_irc::deleteChannels()
 {
 	for (size_t i = _channels.size(); i > 0; i--)
@@ -51,6 +55,8 @@ void	ft_irc::deleteChannels()
 	}
 		
 }
+
+/*Client register*/
 void	ft_irc::registerUser( user *user, std::vector<std::string> msg )
 {
 	for (std::vector<std::string>::iterator i = msg.begin(); i != msg.end(); i++)

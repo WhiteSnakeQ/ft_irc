@@ -19,6 +19,6 @@
 # define MaxServ 5
 
 # define SIGTERM_MESS "Signal - 15(SIGTERM) recived!"
-# define SIGINT_MESS "Signal - 15(SIGTERM) recived!"
+# define SIGINT_MESS "Signal - 2(SIGINT) recived!"
 
 #endif

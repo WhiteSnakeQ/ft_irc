@@ -1,5 +1,6 @@
 #include "../../class_hpp/ft_irc.hpp"
 
+/*Create main socket and set to position(Handle error)*/
 void	ft_irc::createSocket( void )
 {
 	int	enable;
@@ -13,6 +14,7 @@ void	ft_irc::createSocket( void )
 	error::print_message(MAGENTA_COLOR, "Socked options set!");
 }
 
+/*BIND(Handle error)*/
 void	ft_irc::bindSocket( void )
 {
 	struct sockaddr_in addr;
@@ -27,6 +29,7 @@ void	ft_irc::bindSocket( void )
 	error::print_message(MAGENTA_COLOR, "Connect local address and socket!");
 }
 
+/*Check for listen(Handle error)*/
 void	ft_irc::listenSocket( void )
 {
 	if (listen(_socketfd, MAX_CLIENT) == -1)
@@ -34,6 +37,7 @@ void	ft_irc::listenSocket( void )
 	error::print_message(MAGENTA_COLOR, "Socket listen!");
 }
 
+/*FCNTL(Handle error)*/
 void	ft_irc::unblocSocket( void )
 {
 	if (fcntl(_socketfd, F_SETFL, O_NONBLOCK) < 0)

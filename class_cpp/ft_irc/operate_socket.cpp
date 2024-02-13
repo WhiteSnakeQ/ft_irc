@@ -1,5 +1,6 @@
 #include "../../class_hpp/ft_irc.hpp"
 
+/*Catch conections IP4/IP6*/
 int	ft_irc::addNewFd( void )
 {
 	int						newFd;
