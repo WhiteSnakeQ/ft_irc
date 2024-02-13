@@ -22,7 +22,7 @@ OBJ_CLASS	=	${addprefix ${DIR_CLASS}, ${SRC_CLASS:.cpp=.o}}
 
 ALLOBJ		=	${OBJ_MAIN} ${OBJ_CLASS}
 
-NAME		=	ft_irc
+NAME		=	ircserv
 
 CPP			=	c++
 

@@ -20,7 +20,7 @@ int	user:: msgRecv( void )
 	{
 		parser::toupper(_msgFromUser[0]);
 		if (_msgFromUser[0][0] == '/')
-			_msgFromUser[0].erase(0);
+			_msgFromUser[0].erase(0, 1);
 	}
 	return (recv_b);
 }

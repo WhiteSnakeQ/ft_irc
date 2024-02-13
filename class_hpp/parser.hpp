@@ -12,7 +12,7 @@ public:
 	static bool	parse_port( std::string &port );
 	static bool	is_number( std::string &numb );
 
-	static void	toupper( std::string );
+	static void	toupper( std::string &str );
 
 	static std::string				convertIntToStr( int num );
 	static std::string				makeStrFromVector( std::vector<std::string> msg, int skip );

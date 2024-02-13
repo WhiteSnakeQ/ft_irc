@@ -25,7 +25,7 @@ void	ft_irc::welcomeMessage( user *user )
 	std::string	deff;
 	std::string welcomeMsg;
 
-	error::print_message(MAGENTA_COLOR, "New user register!\n");
+	error::print_message(MAGENTA_COLOR, "New user register!");
 	deff = user->getNickName() + "!" + user->getUserName() + "@" + user->getHostName();
 	welcomeMsg = ":IRC 001 " + deff + " :Welcome to the Internet Relay Network " + user->getNickName() + "\n";
 	user->msgToUsser(welcomeMsg);
@@ -84,7 +84,7 @@ void	ft_irc::registerUser( user *user, std::vector<std::string> msg )
 			user->setUserName(*(i + 1));
 	}
 	if (!user->pasProvide() || user->getNickName().length() <= 0 || user->getUserName() == "Unregistered user")
-			kickUser(user->getfd());
+		kickUser(user->getfd());
 	else
 		welcomeMessage(user);
 }

@@ -48,7 +48,7 @@ bool	parser::parse_port( std::string &port )
 }
 
 /*Toupper*/
-void	parser::toupper( std::string str )
+void	parser::toupper( std::string &str )
 {
 	std::transform(str.begin(), str.end(), str.begin(), ::toupper);
 }

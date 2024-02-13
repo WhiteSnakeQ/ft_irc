@@ -38,7 +38,7 @@ void	chanell::changeMode( std::string modes, user *user, std::string addInfo )
 			{
 				if (std::atoi(addInfo.c_str()) < (int)_users.size())
 				{
-					user->msgToUsser("Not valid number, too much users at channel!\r\n");
+					user->msgToUsser("NOTICE " + _name + " :" + user->getNickName() + " Not valid number, too much users at channel!\r\n");
 					return ;
 				}
 				else
@@ -46,8 +46,8 @@ void	chanell::changeMode( std::string modes, user *user, std::string addInfo )
 			}
 			else
 			{
-				user->msgToUsser("Invalid arguments!\r\n");
-				user->msgToUsser("Usage: MODE +l <number>\r\n");
+				user->msgToUsser("NOTICE " + _name + " :" + user->getNickName() + " Invalid arguments!\r\n");
+				user->msgToUsser("NOTICE " + _name + " :" + user->getNickName() + " Usage: MODE +l <number>\r\n");
 				return ;
 			}
 		}
@@ -65,8 +65,8 @@ void	chanell::changeMode( std::string modes, user *user, std::string addInfo )
 			_pass = addInfo;
 		else if (change)
 		{
-			user->msgToUsser("Invalid arguments!\r\n");
-			user->msgToUsser("Usage: MODE <+>k <password>\r\n");
+			user->msgToUsser("NOTICE " + _name + " :" + user->getNickName() + " Invalid arguments!\r\n");
+			user->msgToUsser("NOTICE " + _name + " :" + user->getNickName() + " Usage: MODE <+>k <password>\r\n");
 			return ;
 		}
 		else
@@ -75,7 +75,7 @@ void	chanell::changeMode( std::string modes, user *user, std::string addInfo )
 	}
 	else
 	{
-		user->msgToUsser("This mod unexist!\r\n");
+		user->msgToUsser("NOTICE " + _name + " :" + user->getNickName() + " This mod unexist!\r\n");
 		return ;
 	}
 	changes += ":" + user->getNickName() + " PRIVMSG " + _name + " " + "modes changed to <";
@@ -154,7 +154,7 @@ int	chanell::removeUser( std::string nick, std::string cmd, std::string msg )
 		if (_users.size() <= 0)
 			return (-1);
 		_operators.push_back(_users.front());
-		_users.front()->msgToUsser("You raised to operator of channel " + _name);
+		_users.front()->msgToUsser("NOTICE " + _name + " :" + _users.front()->getNickName() + " You raised to operator of channel " + _name + "\r\n");
 	}
 	return (0);
 }
