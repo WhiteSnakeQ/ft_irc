@@ -21,7 +21,7 @@ int	ft_irc::addNewFd( void )
 	else
 	{
 		error::print_message(RED_COLOR, "Unreadable address family");
-		return -1;
+		return (-1);
 	}
 
 	if (getnameinfo((struct sockaddr *)&clientInfo, sizeStruct, clientHost, NI_MAXHOST, NULL, 0, NI_NUMERICSERV))

@@ -77,14 +77,17 @@ void	ft_irc::operatorCmd( user *user, std::vector<std::string> msg )
 /*Change topic, send all msg*/
 void	ft_irc::topic( user *user, std::vector<std::string> msg )
 {
+	if (msg[1][0] != '#')
+		msg[1].insert(0, "#");
+
 	std::vector<chanell *>::iterator ch = std::find_if(_channels.begin(), _channels.end(), findByStrCh(msg[1]));
 
 	if (ch == _channels.end())
-		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " Chanel not exist!\r\n");
+		user->msgToUsser("Chanel not exist!\r\n");
 	else if (!(*ch)->isOper(user->getNickName()) || (*ch)->getModeStatus('t'))
-		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " You dont have root!\r\n");
+		user->msgToUsser("NOTICE " + msg[1] + " :" + user->getNickName() + " You dont have root!\r\n");
 	else if (msg.size() < 3)
-		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " Invalid number of arguments!\r\n");
+		user->msgToUsser("NOTICE " + msg[1] + " :" + user->getNickName() + " Invalid number of arguments!\r\n");
 	else
 	{
 		(*ch)->setTopic(parser::makeStrFromVector(msg, 2));
@@ -138,10 +141,7 @@ void	ft_irc::invite( user *user, std::vector<std::string> msg )
 		return ;
 	}
 	if (msg[2][0] != '#')
-	{
-		user->msgToUsser("Channels name start from '#'\r\n");
-		return ;
-	}
+		msg[2].insert(0, "#");
 
 	std::vector<chanell *>::iterator ch = std::find_if(_channels.begin(), _channels.end(), findByStrCh(msg[2]));
 	std::vector<class user *>::iterator inv = std::find_if(_users.begin(), _users.end(), findByStrCh(msg[1]));
@@ -195,11 +195,13 @@ void	ft_irc::join( user *user, std::vector<std::string> msg )
 /*Remove user from channel and send msg*/
 void	ft_irc::part( user *user, std::string msg )
 {
-	std::vector<chanell *>::iterator ch = std::find_if(_channels.begin(), _channels.end(), findByStrCh(msg));
 
 	if (msg[0] != '#')
-		user->msgToUsser("Channels name start from '#'\r\n");
-	else if (ch == _channels.end())
+		msg.insert(0, "#");
+
+	std::vector<chanell *>::iterator ch = std::find_if(_channels.begin(), _channels.end(), findByStrCh(msg));
+
+	if (ch == _channels.end())
 		user->msgToUsser("Unexisting channel\r\n");
 	else
 	{
@@ -227,10 +229,10 @@ void	ft_irc::kick( user *user, std::vector<std::string> msg )
 		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " Invalid command!\r\n");
 		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " Usage: KICK <channel name> <user> <message>\r\n");
 	}
-	else if ((*ch)->getModeStatus('o'))
-		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " Operator in this channel cant do this!\r\n");
 	else if (!(*ch)->isOper(user->getNickName()))
 		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " You are not operator!\r\n");
+	else if ((*ch)->getModeStatus('o'))
+		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " Operator in this channel cant do this!\r\n");
 	else if (msg[2] == user->getNickName())
 		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " Cant kick your self!\r\n");
 	else if ((*ch)->isInside(msg[2]))
