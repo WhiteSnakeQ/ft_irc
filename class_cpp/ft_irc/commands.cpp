@@ -91,7 +91,7 @@ void	ft_irc::topic( user *user, std::vector<std::string> msg )
 	else
 	{
 		(*ch)->setTopic(parser::makeStrFromVector(msg, 2));
-		(*ch)->sendMessage(":" + user->getNickName() + " TOPIC " + (*ch)->getName() + " " + (*ch)->getTopic() + "\r\n");
+		(*ch)->sendMessage(":" + user->getNickName() + " TOPIC " + msg[1] + " " + (*ch)->getTopic() + "\r\n");
 	}
 }
 
@@ -149,17 +149,17 @@ void	ft_irc::invite( user *user, std::vector<std::string> msg )
 	if (ch == _channels.end())
 		user->msgToUsser("Channel was not creating\r\n");
 	else if (!(*ch)->isOper(user->getNickName()) || (*ch)->getModeStatus('o'))
-		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " You dont have root!\r\n");
+		user->msgToUsser("NOTICE " + msg[2] + " :" + user->getNickName() + " You dont have root!\r\n");
 	else if (inv == _users.end())
-		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " Unexisting user!\r\n");
+		user->msgToUsser("NOTICE " + msg[2] + " :" + user->getNickName() + " Unexisting user!\r\n");
 	else if ((*ch)->isInside(msg[1]))
-		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " User alredy inside!\r\n");
+		user->msgToUsser("NOTICE " + msg[2] + " :" + user->getNickName() + " User alredy inside!\r\n");
 	else if (msg[1] == user->getNickName())
-		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " Cant add your self!\r\n");
+		user->msgToUsser("NOTICE " + msg[2] + " :" + user->getNickName() + " Cant add your self!\r\n");
 	else if ((*ch)->isAvailb())
 		(*ch)->addUser(*inv, "INVITE");
 	else
-		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " Channel is full\r\n");
+		user->msgToUsser("NOTICE " + msg[2] + " :" + user->getNickName() + " Channel is full\r\n");
 }
 
 /*Add user tochannel and send msg*/
@@ -208,7 +208,7 @@ void	ft_irc::part( user *user, std::string msg )
 		short	err;
 
 		err = (*ch)->removeUser(user->getNickName(), "PART", ":Byby");
-		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " You leave channel " + (*ch)->getName() + "\r\n");
+		user->msgToUsser("NOTICE " + msg + " :" + user->getNickName() + " You leave channel " + msg + "\r\n");
 		if (err == -2)
 		{
 			delete (*ch);
@@ -230,15 +230,15 @@ void	ft_irc::kick( user *user, std::vector<std::string> msg )
 		user->msgToUsser("NOTICE " + msg[1] + " :" + user->getNickName() + " Usage: KICK <channel name> <user> <message>\r\n");
 	}
 	else if (!(*ch)->isOper(user->getNickName()))
-		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " You are not operator!\r\n");
+		user->msgToUsser("NOTICE " + msg[1] + " :" + user->getNickName() + " You are not operator!\r\n");
 	else if ((*ch)->getModeStatus('o'))
-		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " Operator in this channel cant do this!\r\n");
+		user->msgToUsser("NOTICE " + msg[1] + " :" + user->getNickName() + " Operator in this channel cant do this!\r\n");
 	else if (msg[2] == user->getNickName())
-		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " Cant kick your self!\r\n");
+		user->msgToUsser("NOTICE " + msg[1] + " :" + user->getNickName() + " Cant kick your self!\r\n");
 	else if ((*ch)->isInside(msg[2]))
 		(*ch)->removeUser(msg[2], msg[0], parser::makeStrFromVector(msg, 3));
 	else
-		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " User not in channel!\r\n");
+		user->msgToUsser("NOTICE " + msg[1] + " :" + user->getNickName() + " User not in channel!\r\n");
 }
 
 /*Change modes and send msg*/
@@ -260,9 +260,9 @@ void	ft_irc::mode( user *user, std::vector<std::string> msg )
 	if (ch == _channels.end())
 		user->msgToUsser("Channel is not exist!\n\r");
 	else if (!(*ch)->isOper(user->getNickName()))
-		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " You dot have root!\n\r");
+		user->msgToUsser("NOTICE " + msg[1] + " :" + user->getNickName() + " You dot have root!\n\r");
 	else if (msg[2].length() != 2)
-		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " Wrong mode!\r\n");
+		user->msgToUsser("NOTICE " + msg[1] + " :" + user->getNickName() + " Wrong mode!\r\n");
 	else if (msg.size() == 4)
 		(*ch)->changeMode(msg[2], user, msg[3]);
 	else
