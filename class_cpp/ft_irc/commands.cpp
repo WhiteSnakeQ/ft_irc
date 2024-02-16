@@ -226,8 +226,8 @@ void	ft_irc::kick( user *user, std::vector<std::string> msg )
 		user->msgToUsser("Channel not exist\r\n");
 	else if (msg.size() != 4)
 	{
-		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " Invalid command!\r\n");
-		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " Usage: KICK <channel name> <user> <message>\r\n");
+		user->msgToUsser("NOTICE " + msg[1] + " :" + user->getNickName() + " Invalid command!\r\n");
+		user->msgToUsser("NOTICE " + msg[1] + " :" + user->getNickName() + " Usage: KICK <channel name> <user> <message>\r\n");
 	}
 	else if (!(*ch)->isOper(user->getNickName()))
 		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " You are not operator!\r\n");
@@ -252,8 +252,8 @@ void	ft_irc::mode( user *user, std::vector<std::string> msg )
 			ch = std::find_if(_channels.begin(), _channels.end(), findByStrCh(msg[1]));
 	if (msg.size() < 3 || (msg[2][0] != '+' && msg[2][0] != '-') || msg[1][0] != '#')
 	{
-		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " Invalid format of Command!\n\r");
-		user->msgToUsser("NOTICE " + (*ch)->getName() + " :" + user->getNickName() + " Usage: MODE <channel name> <+/-><modes>\n\r");
+		user->msgToUsser("NOTICE " + msg[1] + " :" + user->getNickName() + " Invalid format of Command!\n\r");
+		user->msgToUsser("NOTICE " + msg[1] + " :" + user->getNickName() + " Usage: MODE <channel name> <+/-><modes>\n\r");
 		return ;
 	}
 
